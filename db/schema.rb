@@ -10,9 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2018_09_16_102721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assets", force: :cascade do |t|
+    t.integer "custom_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "channel_id"
+    t.string "yt_id"
+    t.index ["channel_id"], name: "index_assets_on_channel_id"
+  end
+
+  create_table "channels", force: :cascade do |t|
+    t.string "yt_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cmses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.string "yt_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "channel_id"
+    t.bigint "cms_id"
+    t.index ["cms_id"], name: "index_videos_on_cms_id"
+  end
+
+  create_table "views", force: :cascade do |t|
+    t.string "yt_id"
+    t.integer "quantity"
+    t.datetime "date_start"
+    t.datetime "date_end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
