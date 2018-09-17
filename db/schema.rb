@@ -10,19 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_16_120006) do
+ActiveRecord::Schema.define(version: 2018_09_17_003141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "assets", force: :cascade do |t|
-    t.integer "custom_id"
+  create_table "assets", id: :serial, force: :cascade do |t|
+    t.string "custom_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "channel_id"
+    t.string "channel_id"
     t.string "yt_id"
     t.string "title"
+    t.bigint "owned_views"
+    t.datetime "date_start"
+    t.datetime "date_end"
+    t.bigint "cms_id"
     t.index ["channel_id"], name: "index_assets_on_channel_id"
+    t.index ["cms_id"], name: "index_assets_on_cms_id"
   end
 
   create_table "channels", force: :cascade do |t|
@@ -56,4 +61,5 @@ ActiveRecord::Schema.define(version: 2018_09_16_120006) do
     t.string "country_code"
   end
 
+  add_foreign_key "assets", "cmses"
 end
