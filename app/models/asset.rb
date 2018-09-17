@@ -20,4 +20,5 @@ class Asset < ApplicationRecord
 			end
 		end
   end
+  
 end
